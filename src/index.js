@@ -1,6 +1,6 @@
-import firebase from 'firebase/app';
+import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDoc, doc } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyC-Qm_LLk19v6sR1ewasQ5v6zqAJLQ1ZRE",
@@ -13,7 +13,7 @@ const firebaseConfig = {
   };
 
 //Initialize firebase
-const app = intializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
@@ -21,9 +21,13 @@ console.log('hello there, firestore is running!');
 
 const groupCol = collection(db, 'groups');
 
+
 async function getMilk() {
-    const snapshot = await getDocs(collection(db, 'groups'));
-    const sna
+    const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
+    if(snapshot.exists()) {
+        const docData = snapshot.data();
+        console.log(`My data is ${JSON.stringify(docData)}`);
+    }
 }
 
-snapshot
+getMilk();
