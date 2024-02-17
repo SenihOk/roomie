@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Milk Status</title>
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      // You can find this in your Firebase project settings
+      const firebaseConfig = {
+        apiKey:"your api key",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+      };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore(app);
+    </script>
+</head>
+<body>
+    <h1>Milk Status</h1>
+    <div id="milkStatus">Checking...</div>
+
+    <script>
+      // Firestore query
+      const docRef = db.collection("YOUR_COLLECTION_NAME").doc("YOUR_DOCUMENT_ID");
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          const milkValue = doc.data().Milk;
+          let status = "Unknown";
+          switch (milkValue) {
+            case 0:
+              status = "Out of Milk";
+              break;
+            case 1:
+              status = "Running Low on Milk";
+              break;
+            case 2:
+              status = "Milk Stock is Good";
+              break;
+            default:
+              status = "Invalid Milk Status";
+          }
+          document.getElementById("milkStatus").innerText = status;
+        } else {
+          // doc.data() will be undefined in this case
+          document.getElementById("milkStatus").innerText = "No such document!";
+        }
+      }).catch((error) => {
+        console.log("Error getting document:", error);
+        document.getElementById("milkStatus").innerText = "Error checking status.";
+      });
+    </script>
+</body>
+</html>
+
