@@ -46,14 +46,14 @@
             default:
               status = "Invalid Milk Status";
           }
-          document.getElementById("milkStatus").innerText = status;
+          document.getElementById("milkStatus").textContent = status;
         } else {
           // doc.data() will be undefined in this case
-          document.getElementById("milkStatus").innerText = "No such document!";
+          document.getElementById("milkStatus").textContent = "No such document!";
         }
       }).catch((error) => {
         console.log("Error getting document:", error);
-        document.getElementById("milkStatus").innerText = "Error checking status.";
+        document.getElementById("milkStatus").textContent = "Error checking status.";
       });
     </script>
 </body>
