@@ -17,6 +17,13 @@ const app = intializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
+console.log('hello there, firestore is running!');
 
-const snapshot = await getDocs(collection(db, 'groups'));
+const groupCol = collection(db, 'groups');
+
+async function getMilk() {
+    const snapshot = await getDocs(collection(db, 'groups'));
+    const sna
+}
+
 snapshot
