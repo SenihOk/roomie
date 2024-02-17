@@ -9,6 +9,8 @@
     <script defer src="/__/firebase/10.8.0/firebase-firestore-compat.js"></script>
     <script defer src="/__/firebase/10.8.0/firebase-storage-compat.js"></script>
     <script>
+      import { initializeApp } from 'firebase/app';
+      import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
       // Your web app's Firebase configuration
       // You can find this in your Firebase project settings
       const firebaseConfig = {
@@ -21,8 +23,9 @@
       };
 
       // Initialize Firebase
-      const app = firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore(app);
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
     </script>
 </head>
 <body>
