@@ -1,6 +1,8 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { getFirestore, collection, getDoc, doc } from 'firebase/firestore';
+import { getAuth,createUserWithEmailAndPassword } from 'firebase/auth';
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyC-Qm_LLk19v6sR1ewasQ5v6zqAJLQ1ZRE",
@@ -15,9 +17,20 @@ const firebaseConfig = {
 //Initialize firebase
 const app = firebase.initializeApp(firebaseConfig);
 
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
+console.log('hello there, firebase auth is running!');
+
+//TO-DO: create form for signup
+// var email = "mail@seniho.com";
+// var password = "password";
+// createUserWithEmailAndPassword(auth, email, password);
+
+
 const db = getFirestore(app);
 
 console.log('hello there, firestore is running!');
+
 
 const groupCol = collection(db, 'groups');
 
