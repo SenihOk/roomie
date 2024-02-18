@@ -25,7 +25,7 @@ console.log('hello there, firebase auth is running!');
 
 onAuthStateChanged(auth, (user) => {
     const loginElements = document.querySelectorAll(".login-signup");
-    // const userElements = document.querySelectorAll(".account")
+    const accountElements = document.querySelectorAll(".account");
     if (user) {
         // document.getElementsByClassName("login/signup").style.display = 'none';
         loginElements.forEach(element => {
@@ -37,8 +37,9 @@ onAuthStateChanged(auth, (user) => {
         // const uid = user.uid;
     } else {
         console.log('user is not logged in');
-        document.getElementById('account').style.display = 'none';
-        // document.getElementById('logout').style.display = 'none';
+        accountElements.forEach(element => {
+            element.style.display = 'none';
+        });        // document.getElementById('logout').style.display = 'none';
         // document.getElementById('username').style.display = 'none';
         // User is signed out
     }
