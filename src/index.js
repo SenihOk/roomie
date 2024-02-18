@@ -118,6 +118,18 @@ async function getUserData() {
 
 }
 
+function addItem(key) {
+  const snapshot = getDoc(doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/contents/items'));
+  if(snapshot.exists()) {
+    const docData = snapshot.data();
+    itemData = {
+      [key]: 2,
+    };
+    updateDoc(docData, itemData);
+  }
+
+  getItems();
+}
 
 async function getItems() {
     var div = document.getElementById("item-status");
@@ -156,6 +168,7 @@ async function getItems() {
 
 getItems();
 getUserData();
+addItem(soap);
 
 
 
