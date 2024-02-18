@@ -22,20 +22,21 @@ const auth = getAuth(app);
 console.log('hello there, firebase auth is running!');
 onAuthStateChanged(auth, (user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
+        document.getElementById('login/signup').style.display = 'none';
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
     } else {
-      // User is signed out
+
+        // User is signed out
     }
   });
 
-//TO-DO: create form for signup/signin
 const loginForm = document.querySelector("#login-form");
 const signupForm = document.querySelector("#signup-form");
 
 signupForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     const email = signupForm.querySelector("input[name='email']").value;
     console.log(email);
@@ -53,9 +54,8 @@ signupForm.addEventListener("submit", (event) => {
             const errorMessage = error.message;
         });
 });
-
 loginForm.addEventListener("submit", (event) => {
-    // event.preventDefault();
+    event.preventDefault();
 
     const email = loginForm.querySelector("input[name='email']").value;
     console.log(email);
