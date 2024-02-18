@@ -32,9 +32,30 @@ onAuthStateChanged(auth, (user) => {
 
 //TO-DO: create form for signup/signin
 const loginForm = document.querySelector("#login-form");
+const signupForm = document.querySelector("#signup-form");
+
+signupForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const email = signupForm.querySelector("input[name='email']").value;
+    console.log(email);
+    const password = signupForm.querySelector("input[name='password']").value;
+    console.log(password);
+
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            //signed up
+            console.log(`account ${user} has been created, logging in...`);
+            signInWithEmailAndPassword(auth, email, password);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
+});
 
 loginForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     const email = loginForm.querySelector("input[name='email']").value;
     console.log(email);
