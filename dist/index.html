@@ -6,8 +6,8 @@
 </head>
 <body>
     <nav class="navbar" style="display: flex; flex-direction: row-reverse; align-items: center;" >
-        <div id="account" style="display: flex;flex-direction: column;align-items: center;">
-            <h3 id="username"> username</h3>
+        <div class="account" style="display: flex;flex-direction: column;align-items: center;">
+            <h3 id="username"> </h3>
             <button id="logout" type="submit">Log Out</button>
         </div>
 
@@ -31,27 +31,26 @@
             <button type="submit">Sign Up</button>
         </form>
     </div>
-<div id="home">
-
+<div id="home" class="account">
     <div id="room" style="display: block">
         <h1 id="room_name">My Room:</h1>
-        <h3>Item Status:</h3><p id="item-status">Fetching Items...</p>     
-    </div>
+        <h3>Item Status:</h3><p id="item-status">Checking...</p>
+        <style>
+            .household_item {
+            color: #005A43;
+            }
+        </style>
+        <!-- <div><p id="item-status">hello</p></div> -->
+        
+        <div id="add-items">
+            <form id="add-item">
+                <input type="item" name="item" placeholder="Item Name">
+                <button type="submit">Add</button>
+            </form>   
+     </div>
 </div>
 
-  <h3>Item Status:</h3><p id="item-status">Checking...</p>
-  <style>
-    .household_item {
-      color: #005A43;
-    }
-  </style>
-  <!-- <div><p id="item-status">hello</p></div> -->
 
-  <div id="add-items">
-    <form id="add-item">
-      <input type="item" name="item" placeholder="Item Name">
-      <button type="submit">Add</button>
-  </form>
 
   </div>
 
