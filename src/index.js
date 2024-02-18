@@ -22,8 +22,8 @@ const auth = getAuth(app);
 console.log('hello there, firebase auth is running!');
 
 //TO-DO: create form for signup/signin
-var email = "mail@seniho.com";
-var password = "password";
+// var email = "mail@seniho.com";
+// var password = "password";
 signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     //signed in
@@ -71,4 +71,4 @@ async function getMilk() {
     document.getElementById("milkStatus").innerHTML = status;
 }
 
-// getMilk();
+getMilk();
