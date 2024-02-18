@@ -40,6 +40,7 @@ function items(name, status) {
     })
         select.addEventListener('change', (event) => {
             updateItem(name, event.target.value);
+            location.reload();
         });
 
         container.appendChild(select);
@@ -73,7 +74,6 @@ async function updateItem(key, status) {
         [key]: [num],
       };
       updateDoc(docPath, itemData);
-      location.reload();
     }
 }
 
