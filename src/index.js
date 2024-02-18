@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { getFirestore, collection, getDoc, doc } from 'firebase/firestore';
-import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, deleteUser, signOut } from 'firebase/auth';
+import { getFirestore, collection, getDoc, doc, setDoc } from 'firebase/firestore';
+import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -17,19 +17,12 @@ const firebaseConfig = {
 //Initialize firebase
 const app = firebase.initializeApp(firebaseConfig);
 
-//intialize firestore storage
-const db = getFirestore(app);
-
-console.log('hello there, firestore is running!');
-
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
-const user = auth.currentUser;
 console.log('hello there, firebase auth is running!');
 onAuthStateChanged(auth, (user) => {
     if (user) {
         document.getElementById('login/signup').style.display = 'none';
-        // getUserData();
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
@@ -41,6 +34,7 @@ onAuthStateChanged(auth, (user) => {
 
 const loginForm = document.querySelector("#login-form");
 const signupForm = document.querySelector("#signup-form");
+const addItemForm = document.querySelector("#add-item");
 const logout = document.querySelector("#logout");
 
 logout.addEventListener("submit", (event) => {
@@ -52,7 +46,6 @@ logout.addEventListener("submit", (event) => {
         });
     }
 });
-
 signupForm.addEventListener("submit", (event) => {
     // event.preventDefault();
 
@@ -92,15 +85,22 @@ loginForm.addEventListener("submit", (event) => {
         });
 });
 
+addItemForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const itemName = loginForm.querySelector("input[name='item']").value;
+  console.log(email);
+
+});
+
+const db = getFirestore(app);
+
+console.log('hello there, firestore is running!');
 
 
-const groupCol = collection(db, 'groups');
+const groupCol = collection(db, 'rooms');
 
-function getRoom(){
-    const room = 'R0ng35OYrvHCPDNMjvWJ';
-    return room;
-}
-
+//R0ng35OYrvHCPDNMjvWJ
 async function getUserData() {
     const userCol = collection(db, 'users');
     if(user != null){
@@ -115,10 +115,11 @@ async function getUserData() {
 
 }
 
-async function getMilk() {
+
+async function getItems() {
     var div = document.getElementById("item-status");
-    div.innerHTML = "No items currently";
-    const snapshot = await getDoc(doc(groupCol, getRoom()));
+    div.innerHTML = "Loading";
+    const snapshot = await getDoc(doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/items'));
     if(snapshot.exists()) {
         div.innerHTML = "";
         const docData = snapshot.data();
@@ -142,10 +143,145 @@ async function getMilk() {
                   status = `Invalid ${key} Status`;
             }
     // document.getElementById("milkStatus").innerHTML = status;
-          div.innerHTML += (`<p>${key} &nbsp ${status}</p>`);
+          div.innerHTML += (`<p class=household_item>${key} &nbsp ${status}</p>`);
         });
+    } else {
+      div.innerHTML = "No items currently"
     }
 
 }
+
+getItems();
 getUserData();
-getMilk();
+
+
+
+// import * as firebase from 'firebase/app';
+// import 'firebase/firestore';
+// import { getFirestore, collection, getDoc, doc } from 'firebase/firestore';
+// import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, deleteUser, signOut } from 'firebase/auth';
+
+
+// const firebaseConfig = {
+//     apiKey: "AIzaSyC-Qm_LLk19v6sR1ewasQ5v6zqAJLQ1ZRE",
+//     authDomain: "roomie-2024.firebaseapp.com",
+//     databaseURL: "https://roomie-2024-default-rtdb.firebaseio.com",
+//     projectId: "roomie-2024",
+//     storageBucket: "roomie-2024.appspot.com",
+//     messagingSenderId: "993286279870",
+//     appId: "1:993286279870:web:47d7cdf18f77c3e53e84ef"
+//   };
+
+// //Initialize firebase
+// const app = firebase.initializeApp(firebaseConfig);
+
+// //intialize firestore storage
+// const db = getFirestore(app);
+
+// console.log('hello there, firestore is running!');
+
+// // Initialize Firebase Authentication and get a reference to the service
+// const auth = getAuth(app);
+// const user = auth.currentUser;
+// console.log('hello there, firebase auth is running!');
+// onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//         document.getElementById('login/signup').style.display = 'none';
+//         // getUserData();
+//         // User is signed in, see docs for a list of available properties
+//         // https://firebase.google.com/docs/reference/js/auth.user
+//         const uid = user.uid;
+//     } else {
+
+//         // User is signed out
+//     }
+//   });
+
+// const loginForm = document.querySelector("#login-form");
+// const signupForm = document.querySelector("#signup-form");
+
+
+// signupForm.addEventListener("submit", (event) => {
+//     // event.preventDefault();
+
+//     const email = signupForm.querySelector("input[name='email']").value;
+//     console.log(email);
+//     const password = signupForm.querySelector("input[name='password']").value;
+//     console.log(password);
+
+//     createUserWithEmailAndPassword(auth, email, password)
+//         .then((userCredential) => {
+//             //signed up
+//             console.log(`account ${user} has been created, logging in...`);
+//             signInWithEmailAndPassword(auth, email, password);
+//         })
+//         .catch((error) => {
+//             const errorCode = error.code;
+//             const errorMessage = error.message;
+//         });
+// });
+// loginForm.addEventListener("submit", (event) => {
+//     event.preventDefault();
+
+//     const email = loginForm.querySelector("input[name='email']").value;
+//     console.log(email);
+//     const password = loginForm.querySelector("input[name='password']").value;
+//     console.log(password);
+
+//     signInWithEmailAndPassword(auth, email, password)
+//         .then((userCredential) => {
+//             //signed in
+//             const user = userCredential.user;
+//             console.log(`username is ${user}`)
+//         })
+//         .catch((error) => {
+//             const errorCode = error.code;
+//             const errorMessage = error.message;
+//         });
+// });
+
+
+
+// const groupCol = collection(db, 'groups');
+
+// function getRoom(){
+//     const room = 'R0ng35OYrvHCPDNMjvWJ';
+//     return room;
+// }
+
+
+
+// async function getMilk() {
+//     var div = document.getElementById("item-status");
+//     div.innerHTML = "No items currently";
+//     const snapshot = await getDoc(doc(groupCol, getRoom()));
+//     if(snapshot.exists()) {
+//         div.innerHTML = "";
+//         const docData = snapshot.data();
+//         // console.log(`My data is ${JSON.stringify(docData.Milk)}`);
+//         // var milkStatus = docData.Milk;
+//         Object.entries(docData).forEach((entry) => {
+//           const [key, value] = entry;
+//           // console.log(`${key}: ${value}`);
+//           var status = "Loading";
+//           switch (value) {
+//               case 0:
+//                   status = `Out of ${key}`;
+//                   break;
+//               case 1:
+//                   status = `Running Low on ${key}`;
+//                   break;
+//               case 2:
+//                   status = `${key} Stock is Good`;
+//                   break;
+//               default:
+//                   status = `Invalid ${key} Status`;
+//             }
+//     // document.getElementById("milkStatus").innerHTML = status;
+//           div.innerHTML += (`<p>${key} &nbsp ${status}</p>`);
+//         });
+//     }
+
+// }
+// getUserData();
+// getMilk();
