@@ -1,6 +1,6 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { getFirestore, collection, getDoc, doc, setDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 
 
@@ -30,7 +30,8 @@ onAuthStateChanged(auth, (user) => {
         // https://firebase.google.com/docs/reference/js/auth.user
         // const uid = user.uid;
     } else {
-
+        document.getElementById('logout').innerHTML = 'Sign up/Log in'
+        document.getElementById('username').style.display = 'none';
         // User is signed out
     }
   });
@@ -42,7 +43,7 @@ const logout = document.querySelector("#logout");
 
 logout.addEventListener('click', (event) => {
     console.log('attempting logout...');
-    const user = auth.currentUser;
+    // const user = auth.currentUser;
     console.log(user);
     if (user){
         signOut(auth) .then(() => {
@@ -123,14 +124,15 @@ async function getUserData() {
 
 }
 
-function addItem(key) {
-  const snapshot = getDoc(doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/contents/items'));
+async function addItem(key) {
+    const docPath = doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/contents/items');
+    const snapshot = await getDoc(docPath);
   if(snapshot.exists()) {
-    const docData = snapshot.data();
-    itemData = {
+    // const docData = snapshot.data();
+    const itemData = {
       [key]: 2,
     };
-    updateDoc(docData, itemData);
+    updateDoc(docPath, itemData);
   }
 
   getItems();
@@ -173,7 +175,7 @@ async function getItems() {
 
 getItems();
 getUserData();
-addItem(soap);
+addItem('soap');
 
 
 
