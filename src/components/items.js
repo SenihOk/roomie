@@ -45,7 +45,7 @@ function items(name, status) {
 
         container.appendChild(select);
 
-    location.reload();
+    // location.reload();
     return container;
 
 }
