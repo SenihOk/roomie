@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { getFirestore, collection, getDoc, doc, setDoc } from 'firebase/firestore';
-import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -41,12 +41,17 @@ const addItemForm = document.querySelector("#add-item");
 const logout = document.querySelector("#logout");
 
 logout.addEventListener('click', (event) => {
+    console.log('attempting logout...');
+    const user = auth.currentUser;
+    console.log(user);
     if (user){
         signOut(auth) .then(() => {
             //sign out succesful
         }) .catch((error) => {
-            console.log('an error occured');
+            console.log('an error occured', error);
         });
+    } else {
+        console.log('an error occured, user equals null');
     }
 });
 signupForm.addEventListener("submit", (event) => {
