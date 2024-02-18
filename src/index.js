@@ -200,12 +200,28 @@ async function getItems() {
                   status = `Invalid ${key} Status`;
             }
     // document.getElementById("milkStatus").innerHTML = status;
-          div.innerHTML += (`<p class=household_item>${key} &nbsp ${status} <label for="${key}-supply">Status:</label>
-          <select onchange="updateItem(${key}, this.value)", name="${key}-supply" id="{key}-supply"> 
-            <option value="Empty">Empty</option> 
-            <option value="Low">Low</option> 
-            <option value="Good">Good</option> 
-        </select>  </p>  `);
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <p class="household_item">
+        ${key} &nbsp ${status} 
+        <label for="${key}-supply">Update Status:</label>
+        <select name="${key}-supply" id="${key}-supply"></select>
+      </p>
+    `;
+    
+    const selectElement = div.querySelector(`#${key}-supply`);
+    selectElement.innerHTML = `
+      <option value="Empty">Empty</option>
+      <option value="Low">Low</option>
+      <option value="Good">Good</option>
+    `;
+
+    // Attach event listener to each select element
+    selectElement.addEventListener('change', function () {
+      updateItem(key, this.value);
+    });
+
+    container.appendChild(div);
         });
     } else {
       div.innerHTML = "No items currently"
