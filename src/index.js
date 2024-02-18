@@ -122,13 +122,13 @@ async function getUserData() {
 async function getItems() {
     var div = document.getElementById("item-status");
     div.innerHTML = "Loading";
-    const snapshot = await getDoc(doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/items'));
+    const snapshot = await getDoc(doc(groupCol, 'mDo2PQQxBxgVzdK43FMA'));
     if(snapshot.exists()) {
         div.innerHTML = "";
         const docData = snapshot.data();
         // console.log(`My data is ${JSON.stringify(docData.Milk)}`);
         // var milkStatus = docData.Milk;
-        Object.entries(docData).forEach((entry) => {
+        Object.entries(docData.items).forEach((entry) => {
           const [key, value] = entry;
           // console.log(`${key}: ${value}`);
           var status = "Loading";
