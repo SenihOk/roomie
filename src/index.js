@@ -38,27 +38,29 @@ const groupCol = collection(db, 'groups');
 async function getMilk() {
     const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
     if(snapshot.exists()) {
+        console.log('milk status retrieved');
         const docData = snapshot.data();
-        console.log(`My data is ${JSON.stringify(docData)}`);
+        console.log(`My data is ${JSON.stringify(docData.Milk)}`);
+        var milkStatus = docData.Milk;
     }
-    const milkStatus = docData.Milk
 
-    let status = "Unknown";
-          switch (milkStatus) {
-            case 0:
-              status = "Out of Milk";
-              alert("Milk is 0")
-              break;
-            case 1:
-              status = "Running Low on Milk";
-              break;
-            case 2:
-              status = "Milk Stock is Good";
-              break;
-            default:
-              status = "Invalid Milk Status";
-          }
-    document.getElementById("milkStatus").innerHTML = status;
+    
+    
+    var status = "Loading";
+    switch (milkStatus) {
+        case 0:
+            status = "Out of Milk";
+            break;
+        case 1:
+            status = "Running Low on Milk";
+            break;
+        case 2:
+            status = "Milk Stock is Good";
+            break;
+        default:
+            status = "Invalid Milk Status";
+        }
+    document.getElementById("milkStatus").innerHTML = 'Out of Milk';
 }
 
 getMilk();
