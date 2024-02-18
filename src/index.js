@@ -82,9 +82,9 @@ console.log('hello there, firestore is running!');
 const groupCol = collection(db, 'groups');
 
 
-async function getMilk() {
+async function getItems() {
     var div = document.getElementById("item-status");
-    div.innerHTML = "No items currently";
+    div.innerHTML = "Loading";
     const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
     if(snapshot.exists()) {
         div.innerHTML = "";
@@ -111,8 +111,10 @@ async function getMilk() {
     // document.getElementById("milkStatus").innerHTML = status;
           div.innerHTML += (`<p>${key} &nbsp ${status}</p>`);
         });
+    } else {
+      div.innerHTML = "No items currently"
     }
 
 }
 
-getMilk();
+getItems();
