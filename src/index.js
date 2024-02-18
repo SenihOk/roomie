@@ -31,7 +31,7 @@ async function getMilk() {
     const milkStatus = docData.Milk
 
     let status = "Unknown";
-          switch (milkValue) {
+          switch (milkStatus) {
             case 0:
               status = "Out of Milk";
               alert("Milk is 0")
