@@ -147,6 +147,10 @@ async function addItem(key) {
   getItems();
 }
 
+async function updateItem(key, status) {
+
+}
+
 async function getItems() {
     var div = document.getElementById("item-status");
     div.innerHTML = "Loading";
@@ -174,7 +178,12 @@ async function getItems() {
                   status = `Invalid ${key} Status`;
             }
     // document.getElementById("milkStatus").innerHTML = status;
-          div.innerHTML += (`<p class=household_item>${key} &nbsp ${status}</p>`);
+          div.innerHTML += (`<p class=household_item>${key} &nbsp ${status} <label for="${key}-supply">Status:</label>
+          <select name="${key}-supply" id="{key}-supply"> 
+            <option value="Empty">Empty</option> 
+            <option value="Low">Low</option> 
+            <option value="Good">Good</option> 
+        </select>  </p>  `);
         });
     } else {
       div.innerHTML = "No items currently"
