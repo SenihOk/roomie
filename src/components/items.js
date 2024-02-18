@@ -14,9 +14,9 @@ function items(name, status) {
     container.appendChild(nameElement);
 
     // Create and append the item status element
-    const statusElement = document.createElement('p');
-    statusElement.textContent = `Status: ${statusTexts[status]}`;
-    container.appendChild(statusElement);
+    // const statusElement = document.createElement('p');
+    // statusElement.textContent = `Status: ${statusTexts[status]}`;
+    // container.appendChild(statusElement);
     
     //Dropdown for status change
     const label = document.createElement('label');

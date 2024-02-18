@@ -79,7 +79,7 @@ async function addItem(key) {
     };
     updateDoc(docPath, itemData);
   }
-  location.reload();
+  // location.reload();
 
   getItems();
 }
