@@ -41,6 +41,24 @@ async function getMilk() {
         const docData = snapshot.data();
         console.log(`My data is ${JSON.stringify(docData)}`);
     }
+    const milkStatus = docData.Milk
+
+    let status = "Unknown";
+          switch (milkValue) {
+            case 0:
+              status = "Out of Milk";
+              alert("Milk is 0")
+              break;
+            case 1:
+              status = "Running Low on Milk";
+              break;
+            case 2:
+              status = "Milk Stock is Good";
+              break;
+            default:
+              status = "Invalid Milk Status";
+          }
+    document.getElementById("milkStatus").innerHTML = status;
 }
 
 getMilk();
