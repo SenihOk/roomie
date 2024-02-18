@@ -33,6 +33,7 @@ function items(name, status) {
         const option = document.createElement('option');
         option.value = index;
         option.textContent = statusText;
+        option.className = "household_item"
         if(index === status) {
             option.selected = true;
         }
@@ -40,12 +41,11 @@ function items(name, status) {
     })
         select.addEventListener('change', (event) => {
             updateItem(name, event.target.value);
-            location.reload();
         });
 
         container.appendChild(select);
 
-
+    location.reload();
     return container;
 
 }
