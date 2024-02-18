@@ -111,3 +111,13 @@ input[type=password] {
   }
   button:hover[type=logout]{background-color:#6CC24A;}
   button:focus[type=logout]{background-color:#E2EA66;}
+
+  .item_container {
+	display: inline-flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+	width: 50em;
+  }
