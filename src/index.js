@@ -1,6 +1,6 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { getFirestore, collection, getDoc, doc } from 'firebase/firestore';
+import { getFirestore, collection, getDoc, doc, setDoc } from 'firebase/firestore';
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 
 
@@ -34,6 +34,7 @@ onAuthStateChanged(auth, (user) => {
 
 const loginForm = document.querySelector("#login-form");
 const signupForm = document.querySelector("#signup-form");
+const addItemForm = document.querySelector("#add-item");
 
 signupForm.addEventListener("submit", (event) => {
     // event.preventDefault();
@@ -74,18 +75,27 @@ loginForm.addEventListener("submit", (event) => {
         });
 });
 
+addItemForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const itemName = loginForm.querySelector("input[name='item']").value;
+  console.log(email);
+
+});
+
 const db = getFirestore(app);
 
 console.log('hello there, firestore is running!');
 
 
-const groupCol = collection(db, 'groups');
+const groupCol = collection(db, 'rooms');
 
+//R0ng35OYrvHCPDNMjvWJ
 
 async function getItems() {
     var div = document.getElementById("item-status");
     div.innerHTML = "Loading";
-    const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
+    const snapshot = await getDoc(doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/items'));
     if(snapshot.exists()) {
         div.innerHTML = "";
         const docData = snapshot.data();
@@ -109,7 +119,7 @@ async function getItems() {
                   status = `Invalid ${key} Status`;
             }
     // document.getElementById("milkStatus").innerHTML = status;
-          div.innerHTML += (`<p>${key} &nbsp ${status}</p>`);
+          div.innerHTML += (`<p class=household_item>${key} &nbsp ${status}</p>`);
         });
     } else {
       div.innerHTML = "No items currently"
