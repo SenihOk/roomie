@@ -91,8 +91,8 @@ loginForm.addEventListener("submit", (event) => {
 addItemForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const itemName = loginForm.querySelector("input[name='item']").value;
-  console.log(email);
+  const itemName = addItemForm.querySelector("input[name='item']").value;
+  addItem(itemName);
 
 });
 
@@ -168,7 +168,7 @@ async function getItems() {
 
 getItems();
 getUserData();
-addItem(soap);
+//addItem(soap);
 
 
 
