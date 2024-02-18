@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { getFirestore, collection, getDoc, doc } from 'firebase/firestore';
-import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -20,20 +20,36 @@ const app = firebase.initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 console.log('hello there, firebase auth is running!');
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+    } else {
+      // User is signed out
+    }
+  });
 
 //TO-DO: create form for signup/signin
-// var email = "mail@seniho.com";
-// var password = "password";
-signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    //signed in
-    const user = userCredential.user;
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  })
+const loginForm = document.querySelector("#login-form");
 
+loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const email = loginForm.querySelector("input[name='email']").value;
+    const password = loginForm.querySelector("input[name='password']").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            //signed in
+            const user = userCredential.user;
+            console.log(`username is ${user}`)
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
+});
 
 const db = getFirestore(app);
 
