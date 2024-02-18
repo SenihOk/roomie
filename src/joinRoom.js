@@ -1,8 +1,9 @@
-// // Import the necessary Firebase modules
-// import firebase from 'firebase/app';
+// Import the necessary Firebase modules
+import firebase from 'firebase/app';
 // import { getAuth } from 'firebase/auth';
-// import 'firebase/firestore';
-// import { getFirestore, doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
+import 'firebase/firestore';
+import { getFirestore, doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
+import { db, auth } from './firebase-config';
 
 // Initialize Firebase
 // const firebaseConfig = {
