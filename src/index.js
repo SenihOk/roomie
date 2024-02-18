@@ -20,9 +20,9 @@ onAuthStateChanged(auth, (user) => {
         // document.getElementsByClassName("login/signup").style.display = 'none';
         loginElements.forEach(element => {
             element.style.display = 'none';
-            getUserData(user.uid);
-            getRoomData(user.uid);
         });
+        getUserData(user.uid);
+        getRoomData(user.uid);
         console.log('user is logged in', user.email);
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
@@ -58,14 +58,30 @@ async function getUserData(uid) {
     }
 }
 async function getRoomData(uid){
-    roomID = getDoc(doc(userCol, uid))
-    const snapshot = await getDoc(doc(groupCol, user.roomID));
-    if(snapshot.exists()) {
-        const data = snapshot.data();
-        // Object.entries(data.users).forEach((user) => {
-            document.getElementById('users').innerHTML += (data.users[0] + ", ");
-        // });
-        // document.getElementById('users').innerHTML -= (', ');
+    // console.log('calling getRoomData function');
+    document.getElementById('users').innerHTML = ("roommates:");
+    const userSnap = await getDoc(doc(userCol, uid));
+    if(userSnap.exists()) {
+        const roomID = userSnap.data().room;
+        console.log(roomID);
+        const snapshot = await getDoc(doc(groupCol, roomID));
+        if(snapshot.exists()) {
+            const data = snapshot.data();
+            // console.log(data);
+            for (const user of data.users){
+                const userSnap = await getDoc(doc(userCol, user));
+                if (userSnap.exists()){
+                    const name = userSnap.data().name
+                    document.getElementById('users').innerHTML += (name + ", ");
+                }
+            }
+            // console.log('data: ', data);
+            // Object.entries(data.users).forEach((user) => {
+            // });
+            // userSnap.data().name
+            // });
+            // document.getElementById('users').innerHTML -= (', ');
+        }
     }
 }
 

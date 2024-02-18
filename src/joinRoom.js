@@ -29,7 +29,7 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         addUserToRoom(user.uid);
         console.log('user is logged in', user.email);
-
+        
     } else {
         console.log('user is not logged in');
         accountElements.forEach(element => {
