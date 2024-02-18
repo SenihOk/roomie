@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { getFirestore, collection, getDoc, doc } from 'firebase/firestore';
-import { getAuth,createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -21,10 +21,18 @@ const app = firebase.initializeApp(firebaseConfig);
 const auth = getAuth(app);
 console.log('hello there, firebase auth is running!');
 
-//TO-DO: create form for signup
-// var email = "mail@seniho.com";
-// var password = "password";
-// createUserWithEmailAndPassword(auth, email, password);
+//TO-DO: create form for signup/signin
+var email = "mail@seniho.com";
+var password = "password";
+signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    //signed in
+    const user = userCredential.user;
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  })
 
 
 const db = getFirestore(app);
@@ -60,7 +68,7 @@ async function getMilk() {
         default:
             status = "Invalid Milk Status";
         }
-    document.getElementById("milkStatus").innerHTML = 'Out of Milk';
+    document.getElementById("milkStatus").innerHTML = status;
 }
 
-getMilk();
+// getMilk();

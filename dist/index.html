@@ -5,9 +5,25 @@
   <script type="module" src="bundle.js"></script>
 </head>
 <body>
-  <h1>Welcome to My Page</h1>
+    <h1>Welcome to My Roomie!</h1>
 
-  <h3>Milk Status:</h3><p id="milkStatus">Checking...</p>
+    <button id="loginButton">Log In</button>
+    <button id="signupButton">Sign Up</button>
+
+
+    <div id="loginForm" style="display: none;">
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="login()">Log In</button>
+    </div>
+
+    <div id="signupForm" style="display: none;">
+        <input type="email" id="signupEmail" placeholder="Email">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <button onclick="signup()">Sign Up</button>
+    </div>
+
+  <!-- <h3>Milk Status:</h3><p id="milkStatus">Checking...</p> -->
 
 
 </body>
