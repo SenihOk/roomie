@@ -1,3 +1,113 @@
+body {
+	background-color: #E2F3DB;
+}
+
 .household_item {
 	color: #005A43;
 }
+
+.login-signup {
+	color: #005A43;
+	font-family:Arial, Helvetica, sans-serif;
+	width: 100%;
+  	padding: 20px;
+}
+
+input[type=password] {
+	background-color: white;
+	box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+	border-radius:10px;
+	padding:10px;
+  	margin:10px 0;
+	border: 2px solid #005A43;
+	background-repeat: no-repeat;
+	font-family:Arial, Helvetica, sans-serif
+  }
+
+  input[type=email] {
+	background-color: white;
+	box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+	border-radius:10px;
+	padding:10px;
+  	margin:10px 0;
+	border: 2px solid #005A43;
+	background-repeat: no-repeat;
+	font-family:Arial, Helvetica, sans-serif
+  }
+
+  button {
+	/* remove default behavior */
+	appearance:none;
+	-webkit-appearance:none;
+  
+	/* usual styles */
+	padding:10px;
+	border:none;
+	background-color:#005A43;
+	color:#fff;
+	font-weight:600;
+	border-radius:5px;
+	width:200px;
+  
+  }
+
+  .account {
+	color: #005A43;
+	font-family:Arial, Helvetica, sans-serif;
+	width: 50%;
+	text-align: left;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+  }
+
+  select {
+	width: 50%;
+	padding:10px;
+	border-radius:10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: large;
+  }
+
+  input[type=item] {
+	background-color: white;
+	box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+	border-radius:10px;
+	padding:10px;
+  	margin:10px 0;
+	border: 2px solid #005A43;
+	background-repeat: no-repeat;
+	font-family:Arial, Helvetica, sans-serif
+  }
+
+  button:hover{background-color:#6CC24A;}
+  button:focus{background-color:#E2EA66;}
+
+  .roommates {
+	color: rgba(0,0,0,.8);
+	font-weight: bolder;
+	/* width: 100%; */
+	text-align: left;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+  }
+
+  .navbar {
+	text-align: right;
+	align-items: right;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+  }
+
+  button[type=logout] {
+	background-color: #005A43;
+	font-weight:600;
+	border-radius:5px;
+	width:100px;
+  }
+  button:hover[type=logout]{background-color:#6CC24A;}
+  button:focus[type=logout]{background-color:#E2EA66;}
