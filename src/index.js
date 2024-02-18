@@ -19,13 +19,16 @@ const app = firebase.initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
+const user = auth.currentUser;
+
 console.log('hello there, firebase auth is running!');
+
 onAuthStateChanged(auth, (user) => {
     if (user) {
         document.getElementById('login/signup').style.display = 'none';
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
+        // const uid = user.uid;
     } else {
 
         // User is signed out
@@ -182,7 +185,6 @@ getUserData();
 
 // // Initialize Firebase Authentication and get a reference to the service
 // const auth = getAuth(app);
-// const user = auth.currentUser;
 // console.log('hello there, firebase auth is running!');
 // onAuthStateChanged(auth, (user) => {
 //     if (user) {
