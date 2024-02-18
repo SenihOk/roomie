@@ -137,8 +137,8 @@ async function getUserData(user) {
 }
 
 async function addItem(key) {
-    const docPath = doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/contents/items');
-    const snapshot = await getDoc(docPath);
+  const docPath = doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/contents/items');
+  const snapshot = await getDoc(docPath);
   if(snapshot.exists()) {
     // const docData = snapshot.data();
     const itemData = {
@@ -151,7 +151,29 @@ async function addItem(key) {
 }
 
 async function updateItem(key, status) {
-
+  var num = -1;
+  switch(status) {
+    case "Good":
+      num = 2;
+      break;
+    case "Low":
+      num = 1;
+      break;
+    case "Out":
+      num = 0;
+      break;
+    default:
+      num = 0;
+      console.log("Something went wrong");
+  }
+  const docPath = doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/contents/items');
+  const snapshot = await getDoc(docPath);
+  if(snapshot.exists()) {
+    const itemData = {
+      [key]: [num],
+    };
+    updateDoc(docPath, itemData);
+  }
 }
 
 async function getItems() {
@@ -182,7 +204,7 @@ async function getItems() {
             }
     // document.getElementById("milkStatus").innerHTML = status;
           div.innerHTML += (`<p class=household_item>${key} &nbsp ${status} <label for="${key}-supply">Status:</label>
-          <select name="${key}-supply" id="{key}-supply"> 
+          <select onchange="updateItem(${key}, this.value)", name="${key}-supply" id="{key}-supply"> 
             <option value="Empty">Empty</option> 
             <option value="Low">Low</option> 
             <option value="Good">Good</option> 
