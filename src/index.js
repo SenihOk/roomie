@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { getFirestore, collection, getDoc, doc } from 'firebase/firestore';
-import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, deleteUser, signOut } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -17,12 +17,19 @@ const firebaseConfig = {
 //Initialize firebase
 const app = firebase.initializeApp(firebaseConfig);
 
+//intialize firestore storage
+const db = getFirestore(app);
+
+console.log('hello there, firestore is running!');
+
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
+const user = auth.currentUser;
 console.log('hello there, firebase auth is running!');
 onAuthStateChanged(auth, (user) => {
     if (user) {
         document.getElementById('login/signup').style.display = 'none';
+        // getUserData();
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
@@ -34,6 +41,17 @@ onAuthStateChanged(auth, (user) => {
 
 const loginForm = document.querySelector("#login-form");
 const signupForm = document.querySelector("#signup-form");
+const logout = document.querySelector("#logout");
+
+logout.addEventListener("submit", (event) => {
+    if (user){
+        signOut(auth) .then(() => {
+            //sign out succesful
+        }) .catch((error) => {
+            console.log('an error occured');
+        });
+    }
+});
 
 signupForm.addEventListener("submit", (event) => {
     // event.preventDefault();
@@ -74,18 +92,33 @@ loginForm.addEventListener("submit", (event) => {
         });
 });
 
-const db = getFirestore(app);
-
-console.log('hello there, firestore is running!');
 
 
 const groupCol = collection(db, 'groups');
 
+function getRoom(){
+    const room = 'R0ng35OYrvHCPDNMjvWJ';
+    return room;
+}
+
+async function getUserData() {
+    const userCol = collection(db, 'users');
+    if(user != null){
+        console.log(user.uid);
+        const snapshot = await getDoc(userCol, user.uid);
+    
+        if (snapshot.exists()) {
+            const Data = snapshot.data();
+            document.getElementById('username').innerHTML = Data.name;
+        }
+    }
+
+}
 
 async function getMilk() {
     var div = document.getElementById("item-status");
     div.innerHTML = "No items currently";
-    const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
+    const snapshot = await getDoc(doc(groupCol, getRoom()));
     if(snapshot.exists()) {
         div.innerHTML = "";
         const docData = snapshot.data();
@@ -114,5 +147,5 @@ async function getMilk() {
     }
 
 }
-
+getUserData();
 getMilk();
