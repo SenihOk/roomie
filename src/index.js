@@ -40,7 +40,7 @@ const signupForm = document.querySelector("#signup-form");
 const addItemForm = document.querySelector("#add-item");
 const logout = document.querySelector("#logout");
 
-logout.addEventListener("submit", (event) => {
+logout.addEventListener('click', (event) => {
     if (user){
         signOut(auth) .then(() => {
             //sign out succesful
@@ -122,13 +122,13 @@ async function getUserData() {
 async function getItems() {
     var div = document.getElementById("item-status");
     div.innerHTML = "Loading";
-    const snapshot = await getDoc(doc(groupCol, 'mDo2PQQxBxgVzdK43FMA'));
+    const snapshot = await getDoc(doc(groupCol, 'mDo2PQQxBxgVzdK43FMA/contents/items'));
     if(snapshot.exists()) {
         div.innerHTML = "";
         const docData = snapshot.data();
         // console.log(`My data is ${JSON.stringify(docData.Milk)}`);
         // var milkStatus = docData.Milk;
-        Object.entries(docData.items).forEach((entry) => {
+        Object.entries(docData).forEach((entry) => {
           const [key, value] = entry;
           // console.log(`${key}: ${value}`);
           var status = "Loading";
