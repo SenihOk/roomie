@@ -24,12 +24,19 @@ const user = auth.currentUser;
 console.log('hello there, firebase auth is running!');
 
 onAuthStateChanged(auth, (user) => {
+    const loginElements = document.querySelectorAll(".login-signup");
+    // const userElements = document.querySelectorAll(".account")
     if (user) {
-        document.getElementById('login/signup').style.display = 'none';
+        // document.getElementsByClassName("login/signup").style.display = 'none';
+        loginElements.forEach(element => {
+            element.style.display = 'none';
+        });
+        console.log('user is logged in', user.email);
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         // const uid = user.uid;
     } else {
+        console.log('user is not logged in');
         document.getElementById('account').style.display = 'none';
         // document.getElementById('logout').style.display = 'none';
         // document.getElementById('username').style.display = 'none';
@@ -41,6 +48,7 @@ const loginForm = document.querySelector("#login-form");
 const signupForm = document.querySelector("#signup-form");
 const addItemForm = document.querySelector("#add-item");
 const logout = document.querySelector("#logout");
+
 
 logout.addEventListener('click', (event) => {
     console.log('attempting logout...');
@@ -87,7 +95,7 @@ loginForm.addEventListener("submit", (event) => {
         .then((userCredential) => {
             //signed in
             const user = userCredential.user;
-            console.log(`username is ${user}`)
+            console.log(`username is ${user.email}`)
         })
         .catch((error) => {
             const errorCode = error.code;
