@@ -30,8 +30,9 @@ onAuthStateChanged(auth, (user) => {
         // https://firebase.google.com/docs/reference/js/auth.user
         // const uid = user.uid;
     } else {
-        document.getElementById('logout').innerHTML = 'Sign up/Log in'
-        document.getElementById('username').style.display = 'none';
+        document.getElementById('account').style.display = 'none';
+        // document.getElementById('logout').style.display = 'none';
+        // document.getElementById('username').style.display = 'none';
         // User is signed out
     }
   });
