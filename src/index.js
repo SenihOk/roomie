@@ -73,7 +73,8 @@ async function getMilk() {
         var milkStatus = docData.Milk;
         Object.entries(docData).forEach((entry) => {
           const [key, value] = entry;
-          console.log(`${key}: ${value}`);
+          // console.log(`${key}: ${value}`);
+          div.innerHTML += (`${key}: ${value}`);
         });
     }
 
