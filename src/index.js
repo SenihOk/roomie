@@ -60,14 +60,19 @@ const groupCol = collection(db, 'groups');
 
 
 async function getMilk() {
-    var tete = "loading";
-    document.getElementById("item-status").innerHTML = tete;
+    var div = document.getElementById("item-status").innerHTML;
+    div.innerHTML = "No items currently";
     const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
     if(snapshot.exists()) {
+        div.innerHTML = "Loading...";
         console.log('milk status retrieved');
         const docData = snapshot.data();
         console.log(`My data is ${JSON.stringify(docData.Milk)}`);
         var milkStatus = docData.Milk;
+        Object.entries(docData).forEach((entry) => {
+          const [key, value] = entry;
+          console.log(`${key}: ${value}`);
+        });
     }
 
     
