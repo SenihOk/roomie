@@ -202,7 +202,7 @@ async function getItems() {
             }
     // document.getElementById("milkStatus").innerHTML = status;
           div.innerHTML += (`<p class=household_item>${key} &nbsp ${status} <label for="${key}-supply">Update Status:</label>
-          <select onchange="thisAlert('${key}')", name="${key}-supply" id="{key}-supply"> 
+          <select onchange="changeHandler('${key}', this.value)", name="${key}-supply" id="{key}-supply"> 
             <option value="Empty">Empty</option> 
             <option value="Low">Low</option> 
             <option value="Good">Good</option> 
