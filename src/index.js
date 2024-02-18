@@ -38,6 +38,14 @@ onAuthStateChanged(auth, (user) => {
   });
 
 
+const addItemForm = document.querySelector("#add-item");
+addItemForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const itemName = addItemForm.querySelector("input[name='item']").value;
+    addItem(itemName);
+
+});
 watchForms();
 
 const groupCol = collection(db, 'rooms');
