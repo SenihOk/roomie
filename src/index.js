@@ -32,7 +32,6 @@ onAuthStateChanged(auth, (user) => {
             element.style.display = 'none';
         });
         console.log('user is logged in', user.email);
-        getUserData(user);
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         // const uid = user.uid;
@@ -54,22 +53,24 @@ const logout = document.querySelector("#logout");
 logout.addEventListener('click', (event) => {
     console.log('attempting logout...');
     // const user = auth.currentUser;
-    // console.log(user);
-    signOut(auth) .then(() => {
-        //sign out succesful
-        location.reload();
-    }) .catch((error) => {
-        console.log('an error occured', error);
-    });
+    console.log(user);
+    if (user){
+        signOut(auth) .then(() => {
+            //sign out succesful
+        }) .catch((error) => {
+            console.log('an error occured', error);
+        });
+    } else {
+        console.log('an error occured, user equals null');
+    }
 });
 signupForm.addEventListener("submit", (event) => {
     // event.preventDefault();
 
     const email = signupForm.querySelector("input[name='email']").value;
-    // console.log(email);
+    console.log(email);
     const password = signupForm.querySelector("input[name='password']").value;
-    // console.log(password);
-    location.reload();
+    console.log(password);
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -95,7 +96,6 @@ loginForm.addEventListener("submit", (event) => {
             //signed in
             const user = userCredential.user;
             console.log(`username is ${user.email}`)
-            location.reload();
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -119,18 +119,15 @@ console.log('hello there, firestore is running!');
 const groupCol = collection(db, 'rooms');
 
 //R0ng35OYrvHCPDNMjvWJ
-async function getUserData(user) {
+async function getUserData() {
     const userCol = collection(db, 'users');
-    const uid = user.uid;
-    if(user.email != null){
+    if(user != null){
         console.log(user.uid);
-        const snapshot = await getDoc(doc(userCol, uid));
+        const snapshot = await getDoc(userCol, user.uid);
     
         if (snapshot.exists()) {
             const Data = snapshot.data();
-
             document.getElementById('username').innerHTML = Data.name;
-
         }
     }
 
@@ -203,28 +200,12 @@ async function getItems() {
                   status = `Invalid ${key} Status`;
             }
     // document.getElementById("milkStatus").innerHTML = status;
-    const div = document.createElement('div');
-    div.innerHTML = `
-      <p class="household_item">
-        ${key} &nbsp ${status} 
-        <label for="${key}-supply">Update Status:</label>
-        <select name="${key}-supply" id="${key}-supply"></select>
-      </p>
-    `;
-    
-    const selectElement = div.querySelector(`#${key}-supply`);
-    selectElement.innerHTML = `
-      <option value="Empty">Empty</option>
-      <option value="Low">Low</option>
-      <option value="Good">Good</option>
-    `;
-
-    // Attach event listener to each select element
-    selectElement.addEventListener('change', function () {
-      updateItem(key, this.value);
-    });
-
-    container.appendChild(div);
+          div.innerHTML += (`<p class=household_item>${key} &nbsp ${status} <label for="${key}-supply">Update Status:</label>
+          <select onchange="updateItem(${key}, this.value)", name="${key}-supply" id="{key}-supply"> 
+            <option value="Empty">Empty</option> 
+            <option value="Low">Low</option> 
+            <option value="Good">Good</option> 
+        </select>  </p>  `);
         });
     } else {
       div.innerHTML = "No items currently"
@@ -233,7 +214,7 @@ async function getItems() {
 }
 
 getItems();
-// getUserData();
+getUserData();
 //addItem(soap);
 
 
