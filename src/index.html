@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Page</title>
+  <script type="module" src="bundle.js"></script>
+  <link rel="icon" href="favicon.ico">
+</head>
+<body>
+    <nav class="navbar" style="display: flex; flex-direction: row-reverse; align-items: center;" >
+        <div class="account" style="display: flex;flex-direction: column;align-items: center;">
+            <h3 id="username"> name </h3>
+            <button id="logout" type="submit">Log Out</button>
+        </div>
+
+    </nav>
+    <h1 class="login-signup">Welcome to Roomie!</h1>
+
+    <!-- <button id="loginButton">Log In</button> -->
+    <!-- <button id="signupButton">Sign Up</button> -->
+
+
+    <div class="login-signup">
+        <form id="login-form">
+            <input type="email" name="email" placeholder="Email" autocomplete="email">
+            <input type="password" name="password" placeholder="Password" autocomplete="current-password">
+            <button type="submit">Log in</button>
+        </form>
+
+        <form id="signup-form">
+            <input type="email" name="email" placeholder="Email" autocomplete="email">
+            <input type="password" name="password" placeholder="Password" autocomplete="new-password">
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+<div id="home" class="account">
+    <div id="room" style="display: block">
+        <h1 id="room_name">My Room:</h1>
+        <h3>Item Status:</h3><p id="item-status">Checking...</p>
+        <style>
+            .household_item {
+            color: #005A43;
+            }
+        </style>
+        <!-- <div><p id="item-status">hello</p></div> -->
+        
+        <div id="add-items">
+            <form id="add-item">
+                <input type="item" name="item" placeholder="Item Name">
+                <button type="submit">Add</button>
+            </form>   
+     </div>
+</div>
+  </div>
+
+
+</body>
+</html>
