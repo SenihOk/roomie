@@ -44,6 +44,8 @@ const groupCol = collection(db, 'groups');
 
 
 async function getMilk() {
+    var tete = "loading";
+    document.getElementById("item-status").innerHTML = tete;
     const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
     if(snapshot.exists()) {
         console.log('milk status retrieved');
