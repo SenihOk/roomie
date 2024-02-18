@@ -52,6 +52,7 @@ logout.addEventListener('click', (event) => {
     console.log(user);
     if (true){
         signOut(auth) .then(() => {
+          location.reload();
             //sign out succesful
         }) .catch((error) => {
             console.log('an error occured', error);
@@ -71,6 +72,7 @@ signupForm.addEventListener("submit", (event) => {
             //signed up
             console.log(`account ${user} has been created, logging in...`);
             signInWithEmailAndPassword(auth, email, password);
+            location.reload();
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -90,6 +92,7 @@ loginForm.addEventListener("submit", (event) => {
             //signed in
             const user = userCredential.user;
             console.log(`username is ${user.email}`)
+            location.reload();
         })
         .catch((error) => {
             const errorCode = error.code;

@@ -73,6 +73,7 @@ async function updateItem(key, status) {
         [key]: [num],
       };
       updateDoc(docPath, itemData);
+      location.reload();
     }
 }
 
