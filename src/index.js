@@ -36,8 +36,10 @@ const loginForm = document.querySelector("#login-form");
 loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const email = loginForm.querySelector("input[name='email']").value;
+    const email = loginForm.querySelector("input[name='login']");
+    console.log(email);
     const password = loginForm.querySelector("input[name='password']").value;
+    console.log(password);
 
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -60,7 +62,7 @@ const groupCol = collection(db, 'groups');
 
 
 async function getMilk() {
-    var tete = "loading";
+    var tete = "still loading";
     document.getElementById("item-status").innerHTML = tete;
     const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
     if(snapshot.exists()) {
