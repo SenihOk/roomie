@@ -62,7 +62,7 @@ const groupCol = collection(db, 'groups');
 
 
 async function getMilk() {
-    var div = document.getElementById("item-status").innerHTML;
+    var div = document.getElementById("item-status");
     div.innerHTML = "No items currently";
     const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
     if(snapshot.exists()) {
