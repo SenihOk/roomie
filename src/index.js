@@ -66,15 +66,14 @@ async function getMilk() {
     div.innerHTML = "No items currently";
     const snapshot = await getDoc(doc(groupCol, 'R0ng35OYrvHCPDNMjvWJ'));
     if(snapshot.exists()) {
-        div.innerHTML = "Loading...";
-        console.log('milk status retrieved');
+        div.innerHTML = "";
         const docData = snapshot.data();
         console.log(`My data is ${JSON.stringify(docData.Milk)}`);
         var milkStatus = docData.Milk;
         Object.entries(docData).forEach((entry) => {
           const [key, value] = entry;
           // console.log(`${key}: ${value}`);
-          div.innerHTML += (`${key}: ${value}`);
+          div.innerHTML += (`<p>${key} &nbsp ${value}</p>`);
         });
     }
 
