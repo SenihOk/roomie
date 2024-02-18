@@ -32,6 +32,7 @@ onAuthStateChanged(auth, (user) => {
             element.style.display = 'none';
         });
         console.log('user is logged in', user.email);
+        getUserData(user);
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         // const uid = user.uid;
@@ -53,24 +54,22 @@ const logout = document.querySelector("#logout");
 logout.addEventListener('click', (event) => {
     console.log('attempting logout...');
     // const user = auth.currentUser;
-    console.log(user);
-    if (user){
-        signOut(auth) .then(() => {
-            //sign out succesful
-        }) .catch((error) => {
-            console.log('an error occured', error);
-        });
-    } else {
-        console.log('an error occured, user equals null');
-    }
+    // console.log(user);
+    signOut(auth) .then(() => {
+        //sign out succesful
+        location.reload();
+    }) .catch((error) => {
+        console.log('an error occured', error);
+    });
 });
 signupForm.addEventListener("submit", (event) => {
     // event.preventDefault();
 
     const email = signupForm.querySelector("input[name='email']").value;
-    console.log(email);
+    // console.log(email);
     const password = signupForm.querySelector("input[name='password']").value;
-    console.log(password);
+    // console.log(password);
+    location.reload();
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -96,6 +95,7 @@ loginForm.addEventListener("submit", (event) => {
             //signed in
             const user = userCredential.user;
             console.log(`username is ${user.email}`)
+            location.reload();
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -119,15 +119,18 @@ console.log('hello there, firestore is running!');
 const groupCol = collection(db, 'rooms');
 
 //R0ng35OYrvHCPDNMjvWJ
-async function getUserData() {
+async function getUserData(user) {
     const userCol = collection(db, 'users');
-    if(user != null){
+    const uid = user.uid;
+    if(user.email != null){
         console.log(user.uid);
-        const snapshot = await getDoc(userCol, user.uid);
+        const snapshot = await getDoc(doc(userCol, uid));
     
         if (snapshot.exists()) {
             const Data = snapshot.data();
+
             document.getElementById('username').innerHTML = Data.name;
+
         }
     }
 
@@ -192,7 +195,7 @@ async function getItems() {
 }
 
 getItems();
-getUserData();
+// getUserData();
 //addItem(soap);
 
 
