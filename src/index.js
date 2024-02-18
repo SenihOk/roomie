@@ -21,6 +21,7 @@ onAuthStateChanged(auth, (user) => {
         loginElements.forEach(element => {
             element.style.display = 'none';
             getUserData(user.uid);
+            getRoomData(user.uid);
         });
         console.log('user is logged in', user.email);
         // User is signed in, see docs for a list of available properties
@@ -52,17 +53,19 @@ async function getUserData(uid) {
             const data = snapshot.data();
             document.getElementById('username').innerHTML = data.name;
             // console.log('username is ', data.name);
-            getRoomData(data.room);
+            // console.log('fetching roommates...');
         }
     }
 }
-async function getRoomData(roomID){
-    const snapshot = await getDoc(doc(groupCol, roomID));
+async function getRoomData(uid){
+    roomID = getDoc(doc(userCol, uid))
+    const snapshot = await getDoc(doc(groupCol, user.roomID));
     if(snapshot.exists()) {
         const data = snapshot.data();
-        Object.entries(data.users).forEach((user) => {
-            document.getElementById('users').innerHTML += (user + ", ");
-        });
+        // Object.entries(data.users).forEach((user) => {
+            document.getElementById('users').innerHTML += (data.users[0] + ", ");
+        // });
+        // document.getElementById('users').innerHTML -= (', ');
     }
 }
 
